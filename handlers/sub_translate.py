@@ -1,16 +1,16 @@
 import re
-from rich import print as rprint
 from core.services.subs_translate_service import sub_translate
+from utils.mesaages import errorMessage
 
 
 def get_vdUrl() -> str:
-    vdUrl = input("Enter enter the YouTube video URL--> ").strip()
+    url_pattern = r"^(?:http|https)://"
     while True:
-        if re.search(r"(?:https|http)://", vdUrl):
+        vdUrl = input("Enter the YouTube video URL: ").strip()
+        if re.match(url_pattern, vdUrl):
             return vdUrl
         else:
-            rprint("⛔[bold red]Error enter valid[/bold red]")
-            vdUrl = input("Enter correct the YouTube video URL--> ").strip()
+            errorMessage(f"The URL '{vdUrl}' is incorrect. Please try again.")
 
 
 def handle():
