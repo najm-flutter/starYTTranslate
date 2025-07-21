@@ -2,7 +2,7 @@ from google import genai
 from google.genai import types
 import os
 
-MODLE = "gemini-2.5-flash-lite-preview-06-17"
+MODLE = "gemini-2.0-flash"
 PROMPT = """
 
 You are a professional English-to-Arabic subtitle translator with expertise across various fields, including but not limited to technology, science, medicine, business, education, and entertainment.

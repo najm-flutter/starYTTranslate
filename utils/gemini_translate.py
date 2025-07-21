@@ -18,9 +18,9 @@ generate_content_config = types.GenerateContentConfig(
     system_instruction=[
         types.Part.from_text(text=PROMPT),
     ],
-    thinking_config=types.ThinkingConfig(
-        thinking_budget=-1,
-    ),
+    # thinking_config=types.ThinkingConfig(
+    #     thinking_budget=-1,
+    # ),
     media_resolution="MEDIA_RESOLUTION_MEDIUM",
     tools=[
         types.Tool(googleSearch=types.GoogleSearch()),
