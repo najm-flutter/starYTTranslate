@@ -3,7 +3,7 @@ import os
 
 
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
-from utils.handel_subs_tarnslate import tranlateFiles
+from utils.handel_subs_tarnslate import translateFiles
 
 from utils.sub_extract import subs_extract
 from utils.messages import errorMessage, startTaskMessage, completeTaskMessage
@@ -24,4 +24,4 @@ def sub_extract_handle(vdUrl):
 def sub_translate(vdUrl):
     sub_extract_handle(vdUrl)
     splitSrtFile(getPath())
-    tranlateFiles()
+    translateFiles()
