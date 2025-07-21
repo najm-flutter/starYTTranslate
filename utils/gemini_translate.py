@@ -5,7 +5,7 @@ import srt
 import re
 import os
 
-from utils.mesaages import errorMessage
+from utils.messages import errorMessage
 from utils.ai_modle import api_key, PROMPT, MODLE
 
 

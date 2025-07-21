@@ -6,7 +6,7 @@ sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
 from utils.handel_subs_tarnslate import tranlateFiles
 
 from utils.sub_extract import subs_extract
-from utils.mesaages import errorMessage, startTaskMessage, completeTaskMessage
+from utils.messages import errorMessage, startTaskMessage, completeTaskMessage
 from utils.split_srt import getPath, splitSrtFile
 
 

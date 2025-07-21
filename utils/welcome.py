@@ -15,7 +15,7 @@ def welcome_message():
         "from YouTube videos quickly and easily.\n"
     )
 
-    instructions = "[bold]To begin, please enter the YouTube video URL below:[/bold]"
+    instructions = "[bold]To begin, please enter your gemini api key then enter your video url :[/bold]"
 
     panel = Panel.fit(
         f"{title}\n\n{description}\n{instructions}",
@@ -24,4 +24,3 @@ def welcome_message():
     )
 
     console.print(panel)
-

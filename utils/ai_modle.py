@@ -1,3 +1,6 @@
+from google import genai
+from google.genai import types
+import os
 
 MODLE = "gemini-2.5-flash-lite-preview-06-17"
 PROMPT = """
@@ -32,3 +35,27 @@ def api_key():
             return file.read().strip()
     except Exception:
         return None
+
+
+def testConnected(api_key):
+    client = genai.Client(api_key=api_key)
+    try:
+        response = client.models.generate_content(
+            model=MODLE,
+            contents=[
+                types.Content(
+                    role="user",
+                    parts=[types.Part.from_text(text="hi")],
+                )
+            ],
+        )
+        return response.text
+    except Exception:
+        return None
+
+
+def isApiKeyAvailable() -> bool:
+    if not os.path.exists("api_key.txt"):
+        return False
+    with open("api_key.txt") as file:
+        return True if file.read().strip() else False

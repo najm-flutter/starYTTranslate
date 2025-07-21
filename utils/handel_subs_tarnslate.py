@@ -12,7 +12,7 @@ def getSrtFiles():
 def tranlateFiles():
     content = ""
     paths = os.listdir("tmp/parts")
-    print(getSrtFiles())
+
     for i in track(range(0, len(paths))):
         print(f"tmp/parts/{i}.srt")
         content += geminiTranslate(f"tmp/parts/{i}.srt")
