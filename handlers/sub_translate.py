@@ -1,5 +1,5 @@
 import re
-from core.services.subs_translate_service import sub_translate
+from services.subs_translate_service import sub_translate
 from utils.mesaages import errorMessage
 
 
