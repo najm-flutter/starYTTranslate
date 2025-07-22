@@ -21,7 +21,7 @@ def errorMessage(mes):
 
 
 def SuccessMessage(mes):
-    rprint(template(SUCCESS_TITLE, f"[bold greeb]{mes}[/bold green]"))
+    rprint(template(SUCCESS_TITLE, f"[bold green]{mes}[/bold green]"))
 
 
 def startTaskMessage(n, description=""):
