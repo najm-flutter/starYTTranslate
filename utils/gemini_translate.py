@@ -11,9 +11,10 @@ from utils.ai_modle import api_key, PROMPT, MODLE
 from file_paths import TMP_PARTS
 
 
-client = genai.Client(
-    api_key=api_key(),
-)
+def client():
+    return genai.Client(
+        api_key=api_key(),
+    )
 
 
 generate_content_config = types.GenerateContentConfig(
@@ -74,7 +75,7 @@ def geminiTranslate(filePath, max=4):
         subtitles = list(srt.parse(file.read()))
         for i in range(max):
             try:
-                response = client.models.generate_content(
+                response = client().models.generate_content(
                     model=MODLE,
                     contents=contentGenerate(
                         content=srt.compose(subtitles),
