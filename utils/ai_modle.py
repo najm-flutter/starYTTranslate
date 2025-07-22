@@ -2,6 +2,8 @@ from google import genai
 from google.genai import types
 import os
 
+from file_paths import API_KEY
+
 MODLE = "gemini-2.0-flash"
 PROMPT = """
 
@@ -31,7 +33,7 @@ the translate language is arabic
 
 def api_key():
     try:
-        with open("api_key.txt") as file:
+        with open(API_KEY) as file:
             return file.read().strip()
     except Exception:
         return None
@@ -55,7 +57,7 @@ def testConnected(api_key):
 
 
 def isApiKeyAvailable() -> bool:
-    if not os.path.exists("api_key.txt"):
+    if not os.path.exists(API_KEY):
         return False
-    with open("api_key.txt") as file:
+    with open(API_KEY) as file:
         return True if file.read().strip() else False

@@ -17,16 +17,16 @@ def template(title, description) -> Panel:
 
 
 def errorMessage(mes):
-    console.log(template(ERROR_TITLE, f"[bold red]{mes}[/bold red]"))
+    rprint(template(ERROR_TITLE, f"[bold red]{mes}[/bold red]"))
 
 
 def SuccessMessage(mes):
-    console.log(template(ERROR_TITLE, f"[bold greeb]{mes}[/bold green]"))
+    rprint(template(SUCCESS_TITLE, f"[bold greeb]{mes}[/bold green]"))
 
 
 def startTaskMessage(n, description=""):
-    rprint(f"task {n} start: {description}")
+    rprint(f"\ntask {n} start: {description}\n")
 
 
 def completeTaskMessage(n, description=""):
-    rprint(f"task {n} complete: {description}")
+    rprint(f"\ntask {n} complete: {description}\n")

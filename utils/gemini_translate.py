@@ -1,12 +1,14 @@
-from google import genai
-from google.genai import types
-import srt
-
 import re
 import os
 
+from google import genai
+from google.genai import types
+from rich import print as rprint
+import srt
+
 from utils.messages import errorMessage
 from utils.ai_modle import api_key, PROMPT, MODLE
+from file_paths import TMP_PARTS
 
 
 client = genai.Client(
@@ -29,18 +31,17 @@ generate_content_config = types.GenerateContentConfig(
 )
 
 
-def contentGenerate(content, length):
-    print(length, "???????")
+def contentGenerate(content):
     return [
         types.Content(
             role="user",
-            parts=[types.Part.from_text(text=f"""{content}""")],
+            parts=[types.Part.from_text(text=content)],
         )
     ]
 
 
 def getFilesPath():
-    listPaths = os.listdir("tmp/parts/")
+    listPaths = os.listdir(TMP_PARTS)
     return listPaths
 
 
@@ -55,27 +56,20 @@ def textToSrt(content):
 
 def validateOfTranslate(content, subtitles, index, max):
     srtText = re.sub(r"```.*", "", content)
-    print(srtText)
     if subs := textToSrt(srtText):
         if index == max - 1:
             return srt.compose(subs)
-        print(len(subs), len(subtitles))
         if len(subs) == len(subtitles):
-            print("done3")
             for i in range(len(subs)):
                 first: srt.Subtitle = subs[i]
                 second: srt.Subtitle = subtitles[i]
-                print("start:", first.start, "end:", first.end)
-                print("start:", second.start, "end:", second.end)
-
                 if first.start != second.start or first.end != second.end:
-                    print("error2")
                     break
             else:
                 return srt.compose(subs)
 
 
-def geminiTranslate(filePath, max=5):
+def geminiTranslate(filePath, max=4):
     with open(filePath) as file:
         subtitles = list(srt.parse(file.read()))
         for i in range(max):
@@ -84,15 +78,14 @@ def geminiTranslate(filePath, max=5):
                     model=MODLE,
                     contents=contentGenerate(
                         content=srt.compose(subtitles),
-                        length=len(subtitles),
                     ),
                     config=generate_content_config,
                 )
-                print("done")
             except Exception as e:
                 errorMessage(f"API ERROR MESSAGE : {e}")
 
             else:
+                rprint(f"[bold green]Translated[/bold green]: {filePath}.")
                 if subs := validateOfTranslate(
                     response.text if response.text else " ", subtitles, i, max
                 ):
