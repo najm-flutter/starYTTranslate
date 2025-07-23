@@ -19,7 +19,7 @@ def welcome_message():
 
     panel = Panel.fit(
         f"{title}\n\n{description}\n{instructions}",
-        title="🌟 starTYTranslate",
+        title="🌟 starYTTranslate",
         border_style="bright_blue",
     )
 
