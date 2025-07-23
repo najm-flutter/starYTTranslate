@@ -1,6 +1,6 @@
+from handlers import add_api_key, sub_translate
 from utils.welcome import welcome_message
-from handlers import sub_translate, add_api_key
-from utils.ai_modle import isApiKeyAvailable
+from utils.ai_modle import is_api_key_stored
 from rich import print as rprint
 
 menu_text = (
@@ -19,23 +19,16 @@ def run_menu():
     while choice not in "3":
         match choice:
             case "1":
-                if isApiKeyAvailable():
+                if is_api_key_stored():
                     sub_translate.handle()
                 else:
                     rprint(
                         "\nGemini API key [bold red]not found[/bold red]. Please add your API key first.\n"
                     )
             case "2":
-                add_api_key.add_api_key()
-                rprint(
-                    "\nYour Gemini API key has been added [bold green]successfully[/bold green].\n"
-                )
+                add_api_key.handel()
             case _:
                 rprint(
                     "\n[bold red]Invalid sel-ection[/bold red]. Please enter 1, 2, or 3.\n"
                 )
         choice = input(menu_text)
-
-
-if __name__ == "__main__":
-    run_menu()

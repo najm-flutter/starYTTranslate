@@ -4,7 +4,7 @@ import os
 
 from file_paths import API_KEY
 
-MODLE = "gemini-2.0-flash"
+MODLE = "gemini-2.5-pro"
 PROMPT = """
 
 You are a professional English-to-Arabic subtitle translator with expertise across various fields, including but not limited to technology, science, medicine, business, education, and entertainment.
@@ -39,7 +39,7 @@ def api_key():
         return None
 
 
-def testConnected(api_key):
+def test_connected(api_key):
     client = genai.Client(api_key=api_key)
     try:
         response = client.models.generate_content(
@@ -56,7 +56,7 @@ def testConnected(api_key):
         return None
 
 
-def isApiKeyAvailable() -> bool:
+def is_api_key_stored() -> bool:
     if not os.path.exists(API_KEY):
         return False
     with open(API_KEY) as file:

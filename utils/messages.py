@@ -16,17 +16,9 @@ def template(title, description) -> Panel:
     )
 
 
-def errorMessage(mes):
+def error_message(mes):
     rprint(template(ERROR_TITLE, f"[bold red]{mes}[/bold red]"))
 
 
-def SuccessMessage(mes):
+def success_message(mes):
     rprint(template(SUCCESS_TITLE, f"[bold green]{mes}[/bold green]"))
-
-
-def startTaskMessage(n, description=""):
-    rprint(f"\ntask {n} start: {description}\n")
-
-
-def completeTaskMessage(n, description=""):
-    rprint(f"\ntask {n} complete: {description}\n")

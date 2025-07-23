@@ -1,18 +1,31 @@
 import re
-from services.subs_translate_service import sub_translate
-from utils.messages import errorMessage
+import sys
+import os
 
 
-def get_vdUrl() -> str:
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
+
+from services.gemini_translate import gemini_translate
+from services.sub_extract import subs_extract
+from utils.messages import error_message
+from utils.srt_tools import split_srt_file
+
+
+def get_vd_url() -> str:
     url_pattern = r"^(?:http|https)://"
     while True:
         vdUrl = input("\nEnter the YouTube video URL: ").strip()
         if re.match(url_pattern, vdUrl):
             return vdUrl
         else:
-            errorMessage(f"The URL '{vdUrl}' is incorrect. Please try again.")
+            error_message(f"The URL '{vdUrl}' is incorrect. Please try again.")
 
 
 def handle():
-    vdUrl = get_vdUrl()
-    sub_translate(vdUrl)
+    try:
+        vdUrl = get_vd_url()
+        subs_extract(vdUrl)
+        split_srt_file()
+        gemini_translate()
+    except ValueError as e:
+        error_message(e)
