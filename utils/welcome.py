@@ -6,7 +6,7 @@ console = Console()
 
 
 def welcome_message():
-    title = Text("👋 Welcome to starTYTranslate!", style="bold magenta")
+    title = Text("👋 Welcome to starYTTranslate!", style="bold magenta")
 
     description = (
         "[bold cyan]About this tool:[/bold cyan]\n"

@@ -15,7 +15,11 @@ def readSrtFile(file_path):
         return list(srt.parse(file.read()))
 
 
-def writeSrtFile(file_path, subtitles):
+def writeSrtFile(file_path, subtitles: list[srt.Subtitle]):
+    for i in range(len(subtitles)):
+        if not subtitles[i].content:
+            subtitles[i].content = "...nothing..."
+
     with open(file_path, "w") as file:
         file.write(srt.compose(subtitles))
 
