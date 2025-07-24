@@ -1,7 +1,25 @@
+from datetime import datetime
 import srt
 import os
 
 from file_paths import TMP_PATH, TMP_PARTS
+
+
+def start_end_srt_file(start: datetime, end: datetime):
+    path = get_srt_path()
+    subtitels = read_srt_file(path)
+
+    start_seconds = start.hour * 3600 + start.minute * 60 + start.second
+    end_seconds = end.hour * 3600 + end.minute * 60 + end.second
+    for i, sub in enumerate(subtitels):
+        if sub.start.total_seconds() >= start_seconds:
+            startIndex = i
+            break
+    for i, sub in enumerate(subtitels):
+        if sub.end.total_seconds() >= end_seconds:
+            endIndex = i
+            break
+    write_srt_file(path, subtitels[startIndex:endIndex])
 
 
 def get_srt_path():

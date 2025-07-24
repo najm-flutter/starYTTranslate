@@ -40,7 +40,7 @@ def get_manually_transcript(vdId):
         return transcript
 
 
-def get_generated_transcript(vdId):
+def get_generated_transcript(vdId, start=None, end=None):
     try:
         ytt_api = YouTubeTranscriptApi.list(vdId)
         transcript = ytt_api.find_generated_transcript(ytt_api._translation_languages)
