@@ -12,7 +12,7 @@ from rich.progress import track
 import srt
 
 from utils.messages import error_message
-from utils.ai_modle import api_key, PROMPT, MODLE
+from utils.ai_modle import api_key, prompt, MODLE
 from file_paths import TMP_PARTS, TRANSLATE
 from utils.srt_tools import text_to_srt
 
@@ -21,21 +21,6 @@ def client():
     return genai.Client(
         api_key=api_key(),
     )
-
-
-generate_content_config = types.GenerateContentConfig(
-    system_instruction=[
-        types.Part.from_text(text=PROMPT),
-    ],
-    # thinking_config=types.ThinkingConfig(
-    #     thinking_budget=-1,
-    # ),
-    media_resolution="MEDIA_RESOLUTION_MEDIUM",
-    tools=[
-        types.Tool(googleSearch=types.GoogleSearch()),
-    ],
-    response_mime_type="text/plain",
-)
 
 
 def content_generate(content):
@@ -62,7 +47,7 @@ def translate_validator(content, subtitles, index, max):
                 return srt.compose(subs)
 
 
-def translate_part(filePath, max=4):
+def translate_part(filePath, max=4, vd_title=None):
     with open(filePath) as file:
         subtitles = list(srt.parse(file.read()))
         for i in range(max):
@@ -72,7 +57,19 @@ def translate_part(filePath, max=4):
                     contents=content_generate(
                         content=srt.compose(subtitles),
                     ),
-                    config=generate_content_config,
+                    config=types.GenerateContentConfig(
+                        system_instruction=[
+                            types.Part.from_text(text=prompt(vd_title=vd_title)),
+                        ],
+                        # thinking_config=types.ThinkingConfig(
+                        #     thinking_budget=-1,
+                        # ),
+                        media_resolution="MEDIA_RESOLUTION_MEDIUM",
+                        tools=[
+                            types.Tool(googleSearch=types.GoogleSearch()),
+                        ],
+                        response_mime_type="text/plain",
+                    ),
                 )
             except Exception as e:
                 error_message(f"API ERROR MESSAGE : {e}")
@@ -97,7 +94,8 @@ def append_translate(index: int, content, fileName):
     return index
 
 
-def gemini_translate():
+def gemini_translate(vd_title=None):
+    print(vd_title)
     parts_paths = os.listdir(TMP_PARTS)
     os.makedirs(TRANSLATE, exist_ok=True)
     fileName = datetime.now().strftime("%B_%H-%M-%S")
@@ -111,5 +109,5 @@ def gemini_translate():
     index = 1
     for i in track(range(0, len(parts_paths))):
         rprint(f"[bold yellow]Translate[/bold yellow]: {TMP_PARTS}/{i}.srt ...")
-        content = translate_part(f"{TMP_PARTS}/{i}.srt")
+        content = translate_part(f"{TMP_PARTS}/{i}.srt", vd_title=vd_title)
         index = append_translate(index, content, fileName)

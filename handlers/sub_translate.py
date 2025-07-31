@@ -38,11 +38,11 @@ def enter_time():
 def handle():
     try:
         vdUrl = get_vd_url()
-        subs_extract(vdUrl)
+        vd_title = subs_extract(vdUrl)
         if enter_time():
             star, end = time_handel()
             start_end_srt_file(star, end)
         split_srt_file()
-        gemini_translate()
+        gemini_translate(vd_title)
     except ValueError as e:
         error_message(e)

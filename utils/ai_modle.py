@@ -5,7 +5,10 @@ import os
 from file_paths import API_KEY
 
 MODLE = "gemini-2.5-pro"
-PROMPT = """
+
+
+def prompt(vd_title=None) -> str:
+    return f"""
 
 You are a professional English-to-Arabic subtitle translator with expertise across various fields, including but not limited to technology, science, medicine, business, education, and entertainment.
 
@@ -28,6 +31,7 @@ For general content (conversations, stories, interviews, etc.), prioritize natur
 Do not translate timestamps or modify the subtitle structure.
 the output only srt form 
 the translate language is arabic
+{f"the video talk about {vd_title}" if vd_title else ""}
 """
 
 

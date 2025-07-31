@@ -29,6 +29,7 @@ pydantic==2.11.7
 pydantic_core==2.33.2
 Pygments==2.19.2
 pyparsing==3.2.3
+pytube==15.0.0
 requests==2.32.4
 rich==14.0.0
 rsa==4.9.1
@@ -43,3 +44,4 @@ urllib3==2.5.0
 websockets==15.0.1
 youtube-extractor==0.1.0
 youtube-transcript-api==1.2.1
+yt-dlp==2025.7.21
